@@ -11,7 +11,8 @@ public class Player : MonoBehaviour
     private GameObject GameOverPrefab;
     [SerializeField]
     private Text TimeRemaining;
-
+    [SerializeField]
+    private Text lifeText;
 
     private bool isDamage = false;
 
@@ -26,6 +27,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        lifeText.text = string.Format("{0}", GameManager.Instance.life);
     }
 
     // Update is called once per frame
@@ -86,6 +88,7 @@ public class Player : MonoBehaviour
             isDamage = true;
             GameManager.Instance.life--;
             StartCoroutine(Camera.main.GetComponent<ShakeCamera>().Shake(.05f));
+            lifeText.text = string.Format("{0}", GameManager.Instance.life);
             for (int i = 0; i < 3; i++)
             {
                 spriteRenderer.enabled = false;

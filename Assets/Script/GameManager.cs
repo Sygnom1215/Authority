@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoSingletone<GameManager>
 {
-    public int life  = 5;
+    public int life = 5;
     [SerializeField]
     private Text timeText;
     [SerializeField]
