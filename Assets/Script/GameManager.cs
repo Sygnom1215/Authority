@@ -14,30 +14,49 @@ public class GameManager : MonoSingletone<GameManager>
     private SeeTarget tank_1 = null;
     [SerializeField]
     private SeeTarget tank_2 = null;
+    [SerializeField]
+    private GameObject Win;
     public List<GameObject> Bullets;
     public Vector2 maxPosition = new Vector2(8.7f,4.7f);
     public Vector2 minPosition = new Vector2(-8.7f, -4.7f);
     public float time { get; private set; } = 60f;
+    private bool timeOver = false;
     private bool isTankSpawn = false;
     private bool isTankSpawn2 = false;
+    public bool isDead = false;
     private void Start()
     {
         Bullets = new List<GameObject>(GameObject.FindGameObjectsWithTag("Bullet"));
     }
     void Update()
     {
-        TimeCheck();
-        if(time <= 50f && !isTankSpawn) 
+        if (!timeOver)
         {
-            TankSpawn();
+            if (!isDead)
+            {
+                TimeCheck();
+                if (time <= 50f && !isTankSpawn)
+                {
+                    TankSpawn();
+                }
+                if (time <= 30f && !isTankSpawn2)
+                {
+                    TankSpawn2();
+                }
+            }
         }
-        if (time <= 30f && !isTankSpawn2)
+        else
         {
-            TankSpawn2();
+            Win.SetActive(true);
         }
     }
     private void TimeCheck()
     {
+        if(time <= 0)
+        {
+            timeOver = true;
+            return;
+        }
         time -= Time.deltaTime;
         timeText.text = $"{time:N2}";
     }

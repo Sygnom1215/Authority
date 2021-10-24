@@ -1,12 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
     [SerializeField]
     private float speed = 3f;
- 
+    [SerializeField]
+    private GameObject GameOverPrefab;
+    [SerializeField]
+    private Text TimeRemaining;
+
+
     private bool isDamage = false;
 
     private Vector2 moveDir;
@@ -25,8 +31,11 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Hit();
-        Move();
+        if (!GameManager.Instance.isDead)
+        {
+            Hit();
+            Move();
+        }
     }
     void Move()
     {
@@ -62,6 +71,14 @@ public class Player : MonoBehaviour
             }
         }
     }
+    private void GameOver()
+    {
+        GameManager.Instance.life = 0;
+        GameManager.Instance.isDead = true;
+        GameOverPrefab.SetActive(true);
+        TimeRemaining.text = "남은시간 : " + $"{GameManager.Instance.time:N2}";
+
+    }
     public IEnumerator HitAnimation()
     {
         if (!isDamage)
@@ -77,6 +94,10 @@ public class Player : MonoBehaviour
                 yield return new WaitForSeconds(0.2f);
             }
             isDamage = false;
+            if(GameManager.Instance.life <= 0)
+            {
+                GameOver();
+            }
         }
     }
 }

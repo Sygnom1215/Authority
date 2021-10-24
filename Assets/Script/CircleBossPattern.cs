@@ -22,24 +22,28 @@ public class CircleBossPattern : MonoSingletone<CircleBossPattern>
 
     void Update()
     {
-        if (GameManager.Instance.time <= 59f && GameManager.Instance.time > 20f)
+        if (!GameManager.Instance.isDead)
         {
-            if(isPattern1 == true)
+            if (GameManager.Instance.time <= 59f && GameManager.Instance.time > 20f)
             {
-                return;
+                if (isPattern1 == true)
+                {
+                    return;
+                }
+                StartCoroutine(SpinShotCenter());
             }
-            StartCoroutine(SpinShotCenter());
-        }
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 StartCoroutine(SpinShotCenter());
             }
-        if(GameManager.Instance.time <= 20f && !isPattern2)
-        {
-            SpinShotRight();
-            SpinShotLeft();
+            if (GameManager.Instance.time <= 20f && !isPattern2)
+            {
+                SpinShotRight();
+                SpinShotLeft();
+            }
         }
     }
+        
 
     private IEnumerator SpinShotCenter()
     {
