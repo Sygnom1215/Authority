@@ -16,11 +16,10 @@ public class Bullet : MonoBehaviour
     {
          transform.Translate(Vector2.down * speed * Time.deltaTime, Space.Self);
     }
-    void BulletDestroy()
+    public void BulletDestroy()
     {
         GameManager.Instance.RemoveBulletList(gameObject);
         Destroy(gameObject);
-
     }
   
 }

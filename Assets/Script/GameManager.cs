@@ -11,12 +11,6 @@ public class GameManager : MonoSingletone<GameManager>
     [SerializeField]
     private Text lifeText;
     [SerializeField]
-    private SeeTarget tank = null;
-    [SerializeField]
-    private SeeTarget tank_1 = null;
-    [SerializeField]
-    private SeeTarget tank_2 = null;
-    [SerializeField]
     private GameObject Win;
     [SerializeField]
     private GameObject menu;
@@ -26,15 +20,13 @@ public class GameManager : MonoSingletone<GameManager>
     public Vector2 maxPosition = new Vector2(8.7f, 4.7f);
     public Vector2 minPosition = new Vector2(-8.7f, -4.7f);
     public float time { get; private set; } = 60f;
-    private bool timeOver = false;
-    private bool isTankSpawn = false;
-    private bool isTankSpawn2 = false;
+    public bool timeOver { get; private set; } = false;
     private bool isOpenMenu = false;
     public bool isDead = false;
     private void Start()
     {
         Bullets = new List<GameObject>(GameObject.FindGameObjectsWithTag("Bullet"));
-        lifeText.text = string.Format("Life {0}", GameManager.Instance.life);
+        lifeText.text = string.Format("Life {0}", life);
     }
     void Update()
     {
@@ -49,36 +41,22 @@ public class GameManager : MonoSingletone<GameManager>
                 OpenMenu();
             }
         }
-        if (!timeOver)
+        if (!timeOver || !isDead)
         {
-            if (!isDead)
-            {
-                TimeCheck();
-                if (time <= 50f && !isTankSpawn)
-                {
-                    TankSpawn();
-                }
-                if (time <= 30f && !isTankSpawn2)
-                {
-                    TankSpawn2();
-                }
-            }
-        }
-        else
-        {
-            Win.SetActive(true);
+           TimeCheck();
         }
     }
-    private void TimeCheck()
+    public void TimeCheck()
     {
-        if (time <= 0)
-        {
+            if (time <= 0)
+            {
+            Win.SetActive(true);
             timeOver = true;
-            return;
-        }
-        time -= Time.deltaTime;
-        timeText.text = $"{time:N2}";
-        lifeText.text = string.Format("Life {0}", GameManager.Instance.life);
+                return;
+            }
+            time -= Time.deltaTime;
+            timeText.text = $"{time:N2}";
+            lifeText.text = string.Format("Life {0}", life);
     }
     public void AddBulletList(GameObject bullet)
     {
@@ -88,17 +66,7 @@ public class GameManager : MonoSingletone<GameManager>
     {
         Bullets.Remove(bullet);
     }
-    private void TankSpawn()
-    {
-        tank.gameObject.SetActive(true);
-        isTankSpawn = true;
-    }
-    private void TankSpawn2()
-    {
-        tank_1.gameObject.SetActive(true);
-        tank_2.gameObject.SetActive(true);
-        isTankSpawn2 = true;
-    }
+
     private void OpenMenu()
     {
         isOpenMenu = true;
@@ -112,15 +80,23 @@ public class GameManager : MonoSingletone<GameManager>
         menu.SetActive(false);
         Time.timeScale = 1;
     }
-    public void Restart()
+    public void Boss_Test_PatternReset()
     {
+        ResetBullet();
+        Player.Instance.transform.position = new Vector2(0, -3);
         time = 60f;
+        Time.timeScale = 1;
         life = 5;
         GameOverPrefab.SetActive(false);
+        Boss_Test.Instance.ResetPattern();
         isDead = false;
     }
-    public void BossPatternReset()
+    public void ResetBullet()
     {
-        
+        foreach(GameObject bullet in Bullets)
+        {
+            Destroy(bullet);
+        }
+        Bullets = new List<GameObject>();
     }
 }
