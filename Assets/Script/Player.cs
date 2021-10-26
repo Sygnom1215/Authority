@@ -23,14 +23,12 @@ public class Player : MonoBehaviour
 
     
 
-    // Start is called before the first frame update
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         lifeText.text = string.Format("Life {0}", GameManager.Instance.life);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!GameManager.Instance.isDead)
