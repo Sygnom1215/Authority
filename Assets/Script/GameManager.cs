@@ -16,6 +16,8 @@ public class GameManager : MonoSingletone<GameManager>
     private SeeTarget tank_2 = null;
     [SerializeField]
     private GameObject Win;
+    [SerializeField]
+    private GameObject menu;
     public List<GameObject> Bullets;
     public Vector2 maxPosition = new Vector2(8.7f,4.7f);
     public Vector2 minPosition = new Vector2(-8.7f, -4.7f);
@@ -23,6 +25,7 @@ public class GameManager : MonoSingletone<GameManager>
     private bool timeOver = false;
     private bool isTankSpawn = false;
     private bool isTankSpawn2 = false;
+    private bool isOpenMenu = false;
     public bool isDead = false;
     private void Start()
     {
@@ -30,6 +33,17 @@ public class GameManager : MonoSingletone<GameManager>
     }
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (isOpenMenu)
+            {
+                CloseMenu();
+            }
+            else
+            {
+                OpenMenu();
+            }
+        }
         if (!timeOver)
         {
             if (!isDead)
@@ -78,5 +92,18 @@ public class GameManager : MonoSingletone<GameManager>
         tank_1.gameObject.SetActive(true);
         tank_2.gameObject.SetActive(true);
         isTankSpawn2 = true;
+    }
+    private void OpenMenu()
+    {
+        isOpenMenu = true;
+        menu.SetActive(true);
+        Time.timeScale = 0;
+
+    }
+    public void CloseMenu()
+    {
+        isOpenMenu = false;
+        menu.SetActive(false);
+        Time.timeScale = 1;
     }
 }
