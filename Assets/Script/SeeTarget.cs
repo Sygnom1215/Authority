@@ -14,7 +14,7 @@ public class SeeTarget : MonoSingletone<SeeTarget>
     private Transform bulletPosition = null;
     [SerializeField]
     private GameObject bullet;
-    private bool isPattern1 = false;
+    public bool isPattern1 = false;
     private bool isStop = false;
     void Start()
     {

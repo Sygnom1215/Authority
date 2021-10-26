@@ -9,6 +9,8 @@ public class GameManager : MonoSingletone<GameManager>
     [SerializeField]
     private Text timeText;
     [SerializeField]
+    private Text lifeText;
+    [SerializeField]
     private SeeTarget tank = null;
     [SerializeField]
     private SeeTarget tank_1 = null;
@@ -18,8 +20,10 @@ public class GameManager : MonoSingletone<GameManager>
     private GameObject Win;
     [SerializeField]
     private GameObject menu;
+    [SerializeField]
+    private GameObject GameOverPrefab;
     public List<GameObject> Bullets;
-    public Vector2 maxPosition = new Vector2(8.7f,4.7f);
+    public Vector2 maxPosition = new Vector2(8.7f, 4.7f);
     public Vector2 minPosition = new Vector2(-8.7f, -4.7f);
     public float time { get; private set; } = 60f;
     private bool timeOver = false;
@@ -30,6 +34,7 @@ public class GameManager : MonoSingletone<GameManager>
     private void Start()
     {
         Bullets = new List<GameObject>(GameObject.FindGameObjectsWithTag("Bullet"));
+        lifeText.text = string.Format("Life {0}", GameManager.Instance.life);
     }
     void Update()
     {
@@ -66,13 +71,14 @@ public class GameManager : MonoSingletone<GameManager>
     }
     private void TimeCheck()
     {
-        if(time <= 0)
+        if (time <= 0)
         {
             timeOver = true;
             return;
         }
         time -= Time.deltaTime;
         timeText.text = $"{time:N2}";
+        lifeText.text = string.Format("Life {0}", GameManager.Instance.life);
     }
     public void AddBulletList(GameObject bullet)
     {
@@ -105,5 +111,16 @@ public class GameManager : MonoSingletone<GameManager>
         isOpenMenu = false;
         menu.SetActive(false);
         Time.timeScale = 1;
+    }
+    public void Restart()
+    {
+        time = 60f;
+        life = 5;
+        GameOverPrefab.SetActive(false);
+        isDead = false;
+    }
+    public void BossPatternReset()
+    {
+        
     }
 }
