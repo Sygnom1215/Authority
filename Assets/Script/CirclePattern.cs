@@ -7,13 +7,11 @@ public class CirclePattern : MonoBehaviour
     private float degree = 0;
     private Vector2 bulletPosition = Vector2.zero;
     int count = 30;
-    // Start is called before the first frame update
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.X)){
