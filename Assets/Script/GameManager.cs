@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoSingletone<GameManager>
 {
@@ -118,6 +119,7 @@ public class GameManager : MonoSingletone<GameManager>
         life = 5;
         GameOverPrefab.SetActive(false);
         isDead = false;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void BossPatternReset()
     {
