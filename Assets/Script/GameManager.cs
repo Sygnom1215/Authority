@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoSingletone<GameManager>
 {
@@ -90,6 +91,7 @@ public class GameManager : MonoSingletone<GameManager>
         GameOverPrefab.SetActive(false);
         Boss_Test.Instance.ResetPattern();
         isDead = false;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void ResetBullet()
     {
