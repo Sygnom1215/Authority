@@ -22,15 +22,19 @@ public class GameManager : MonoSingletone<GameManager>
     private GameObject menu;
     [SerializeField]
     private GameObject GameOverPrefab;
+
     public List<GameObject> Bullets;
     public Vector2 maxPosition = new Vector2(8.7f, 4.7f);
     public Vector2 minPosition = new Vector2(-8.7f, -4.7f);
+
     public float time { get; private set; } = 60f;
+
     private bool timeOver = false;
     private bool isTankSpawn = false;
     private bool isTankSpawn2 = false;
     private bool isOpenMenu = false;
     public bool isDead = false;
+
     private void Start()
     {
         Bullets = new List<GameObject>(GameObject.FindGameObjectsWithTag("Bullet"));
