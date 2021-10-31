@@ -63,7 +63,7 @@ public class Player : MonoSingletone<Player>
         {
             if (Vector2.Distance(transform.position, bullet.transform.position) <= .2f)
             {
-                    Debug.Log("HIT2");
+                    //Debug.Log("HIT2");
                     StartCoroutine(HitAnimation());
             }
         }

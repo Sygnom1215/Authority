@@ -29,6 +29,10 @@ public class Boss_Test : MonoSingletone<Boss_Test>
     Coroutine spinShotCenter;
     Coroutine shotDelay;
 
+ 
+
+
+
     void Start()
     {
 
@@ -83,13 +87,18 @@ public class Boss_Test : MonoSingletone<Boss_Test>
             {
                 for (int i = 0; i < count; i++)
                 {
-                    var bulletObject = Instantiate(bullet).GetComponent<Bullet>();
-                    GameManager.Instance.AddBulletList(bulletObject.gameObject);
+                    GameObject newBullet = GameManager.Instance.ObjectPool();
+                    if( newBullet == null )
+                    {
+                        newBullet = Instantiate(bullet);
+                        GameManager.Instance.AddBulletList(newBullet);
+                    }
+
                     float radian = degree * Mathf.Deg2Rad;
                     bulletPosition = new Vector2(Mathf.Cos(radian), Mathf.Sin(radian) + 10f) * 0.2f;
-                    bulletObject.transform.position = bulletPosition;
+                    newBullet.transform.position = bulletPosition;
                     degree += 360 / count;
-                    bulletObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, degree));
+                    newBullet.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, degree));
                     degree = degree >= 360 ? degree - 360 : degree;
                 }
                 degree = degree >= 360 ? degree - 360 : degree;

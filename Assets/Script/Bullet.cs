@@ -7,10 +7,10 @@ public class Bullet : MonoBehaviour
 
     public float speed = 20f;
 
-    void Start()
-    {
-        Invoke("BulletDestroy", 4f);
-    }
+    //void Start()
+    //{
+    //    Invoke("BulletDestroy", 4f);
+    //}
 
     void Update()
     {
@@ -18,8 +18,14 @@ public class Bullet : MonoBehaviour
     }
     public void BulletDestroy()
     {
-        GameManager.Instance.RemoveBulletList(gameObject);
-        Destroy(gameObject);
+        
+        //Destroy(gameObject);
     }
-  
+
+    public void OnBecameInvisible()
+    {
+        if( GameManager.Instance != null )
+            GameManager.Instance.RemoveBulletList(gameObject);
+    }
+
 }

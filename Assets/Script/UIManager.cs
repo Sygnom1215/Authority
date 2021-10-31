@@ -18,4 +18,13 @@ public class UIManager : MonoBehaviour
     {
         
     }
+
+    public void OnClickCloseMenu()
+    {
+        GameManager.Instance.CloseMenu();
+    }
+    public void OnClickRestart()
+    {
+        GameManager.Instance.Boss_Test_PatternReset();
+    }
 }
