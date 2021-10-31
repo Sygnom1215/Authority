@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Player : MonoBehaviour
+public class Player : MonoSingletone<Player>
 {
     [SerializeField]
     private float speed = 3f;
@@ -74,6 +74,7 @@ public class Player : MonoBehaviour
         GameManager.Instance.isDead = true;
         GameOverPrefab.SetActive(true);
         TimeRemaining.text = "남은시간 : " + $"{GameManager.Instance.time:N2}";
+        Time.timeScale = 0;
     }
     public IEnumerator HitAnimation()
     {

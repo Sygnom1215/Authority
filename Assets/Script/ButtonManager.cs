@@ -10,6 +10,6 @@ public class ButtonManager : MonoBehaviour
     }
     public void OnClickRestart()
     {
-        GameManager.Instance.Restart();
+        GameManager.Instance.Boss_Test_PatternReset();
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SeeTarget : MonoSingletone<SeeTarget>
+public class SeeTarget : MonoBehaviour
 {
     [SerializeField]
     private Transform player = null;
@@ -16,6 +16,8 @@ public class SeeTarget : MonoSingletone<SeeTarget>
     private GameObject bullet;
     public bool isPattern1 = false;
     private bool isStop = false;
+
+    Coroutine shot = null;
     void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
@@ -23,17 +25,21 @@ public class SeeTarget : MonoSingletone<SeeTarget>
 
     void Update()
     {
-        Debug.Log(GameManager.Instance.time);
         SetRotation();
         SetLinePosition();
         if (GameManager.Instance.time <= 50f && !isPattern1)
         {
             isPattern1 = true;
-            StartCoroutine(Pattern1());
+            shot = StartCoroutine(Pattern1());
         }
         if (Input.GetKeyDown(KeyCode.Z))
         {
             Shot(Angle);
+        }
+        if(GameManager.Instance.isDead)
+        {
+            ResetPattern();
+            gameObject.SetActive(false);
         }
     }
     void SetRotation()
@@ -54,11 +60,6 @@ public class SeeTarget : MonoSingletone<SeeTarget>
             lineRenderer.SetPosition(1, center.position);
         }
     }
-    public void ShotToTarget()
-    {
-        Shot(Angle);
-    }
-
     public void Shot(float angle)
     {
         var bulletObject = Instantiate(bullet).GetComponent<Bullet>();
@@ -91,5 +92,11 @@ public class SeeTarget : MonoSingletone<SeeTarget>
         }
         lineRenderer.enabled = false;
         gameObject.SetActive(false);
+    }
+    public void ResetPattern()
+    {
+        StopCoroutine(shot);
+        isPattern1 = false;
+        isStop = false;
     }
 }
