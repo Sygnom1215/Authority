@@ -24,8 +24,10 @@ public class GameManager : MonoSingletone<GameManager>
     public bool timeOver { get; private set; } = false;
     private bool isOpenMenu = false;
     public bool isDead = false;
+    private Boss_Test bossTest;
     private void Start()
     {
+        bossTest = FindObjectOfType<Boss_Test>();
         Bullets = new List<GameObject>(GameObject.FindGameObjectsWithTag("Bullet"));
         lifeText.text = string.Format("Life {0}", life);
     }
@@ -46,6 +48,7 @@ public class GameManager : MonoSingletone<GameManager>
         {
            TimeCheck();
         }
+        
     }
     public void TimeCheck()
     {
@@ -89,7 +92,7 @@ public class GameManager : MonoSingletone<GameManager>
         Time.timeScale = 1;
         life = 5;
         GameOverPrefab.SetActive(false);
-        Boss_Test.Instance.ResetPattern();
+        bossTest.ResetPattern();
         isDead = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

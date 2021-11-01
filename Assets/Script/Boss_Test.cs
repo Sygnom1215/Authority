@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boss_Test : MonoSingletone<Boss_Test>
+public class Boss_Test : MonoBehaviour
 {
     [SerializeField]
     private SeeTarget tank = null;
