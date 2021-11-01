@@ -27,7 +27,30 @@ public class GameManager : MonoSingletone<GameManager>
     public bool timeOver { get; private set; } = false;
     private bool isOpenMenu = false;
     public bool isDead = false;
+<<<<<<< HEAD
     private Boss_Test bossTest;
+=======
+
+    public GameObject ObjectPool()
+    {
+        GameObject bullet = null;
+
+        for (int i = 0; i < Bullets.Count; ++i)
+        {
+            if (Bullets[i] != null)
+            {
+                if (Bullets[i].activeSelf == false)
+                {
+                    bullet = Bullets[i];
+                    bullet.SetActive(true);
+                    break;
+                }
+            }
+        }
+        return bullet;
+    }
+
+>>>>>>> SoHyung
     private void Start()
     {
         bossTest = FindObjectOfType<Boss_Test>();
