@@ -30,7 +30,7 @@ public class Player : MonoSingletone<Player>
     {
         if (!GameManager.Instance.isDead)
         {
-            Hit();
+            HitCheck();
             Move();
         }
     }
@@ -57,14 +57,14 @@ public class Player : MonoSingletone<Player>
 
         transform.position = Position;
     }
-    public void Hit()
+    public void HitCheck()
     {
         foreach (GameObject bullet in GameManager.Instance.Bullets)
         {
             if (Vector2.Distance(transform.position, bullet.transform.position) <= .2f)
             {
                     Debug.Log("HIT2");
-                    StartCoroutine(HitAnimation());
+                    StartCoroutine(Hit());
             }
         }
     }
@@ -76,7 +76,7 @@ public class Player : MonoSingletone<Player>
         TimeRemaining.text = "남은시간 : " + $"{GameManager.Instance.time:N2}";
         Time.timeScale = 0;
     }
-    public IEnumerator HitAnimation()
+    public IEnumerator Hit()
     {
         if (!isDamage)
         {
