@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boss_Test : MonoBehaviour
+public class Boss_Test : MonoSingletone<Boss_Test>
 {
     [SerializeField]
     private SeeTarget tank = null;
@@ -25,13 +25,9 @@ public class Boss_Test : MonoBehaviour
     private bool isTankSpawn = false;
     private bool isTankSpawn2 = false;
     private float randomX = 0f;
-   
+
     Coroutine spinShotCenter;
     Coroutine shotDelay;
-
- 
-
-
 
     void Start()
     {
@@ -43,7 +39,7 @@ public class Boss_Test : MonoBehaviour
         {
             if (GameManager.Instance.time <= 59 && GameManager.Instance.time > 20f && !isSpinPattern1)
             {
-               spinShotCenter =  StartCoroutine(SpinShotCenter());
+                spinShotCenter = StartCoroutine(SpinShotCenter());
             }
             if (GameManager.Instance.time <= 50f && !isTankSpawn)
             {
@@ -82,26 +78,26 @@ public class Boss_Test : MonoBehaviour
     }
     private IEnumerator SpinShotCenter()
     {
-            isSpinPattern1 = true;
-            for (int j = 0; j < 10; j++)
+        isSpinPattern1 = true;
+        for (int j = 0; j < 10; j++)
+        {
+            for (int i = 0; i < count; i++)
             {
-                for (int i = 0; i < count; i++)
-                {
-                    var newBullet = Instantiate(bullet).GetComponent<Bullet>();
-                    GameManager.Instance.AddBulletList(newBullet.gameObject);
-                    float radian = degree * Mathf.Deg2Rad;
-                    bulletPosition = new Vector2(Mathf.Cos(radian), Mathf.Sin(radian) + 10f) * 0.2f;
-                    newBullet.transform.position = bulletPosition;
-                    degree += 360 / count;
-                    newBullet.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, degree));
-                    degree = degree >= 360 ? degree - 360 : degree;
-                }
+                var bulletObject = Instantiate(bullet).GetComponent<Bullet>();
+                GameManager.Instance.AddBulletList(bulletObject.gameObject);
+                float radian = degree * Mathf.Deg2Rad;
+                bulletPosition = new Vector2(Mathf.Cos(radian), Mathf.Sin(radian) + 10f) * 0.2f;
+                bulletObject.transform.position = bulletPosition;
+                degree += 360 / count;
+                bulletObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, degree));
                 degree = degree >= 360 ? degree - 360 : degree;
-                degree += 10;//방향 전환
-                yield return new WaitForSeconds(0.2f);
             }
+            degree = degree >= 360 ? degree - 360 : degree;
+            degree += 10;//방향 전환
+            yield return new WaitForSeconds(0.2f);
+        }
         yield return new WaitForSeconds(5f);
-            isSpinPattern1 = false;
+        isSpinPattern1 = false;
     }
     private void SpinShotRight()
     {
@@ -159,7 +155,7 @@ public class Boss_Test : MonoBehaviour
         isTankSpawn = false;
         isTankSpawn2 = false;
         StopCoroutine(spinShotCenter);
-        if(isRainShot)
+        if (isRainShot)
         {
             StopCoroutine(shotDelay);
         }

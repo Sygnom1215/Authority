@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoSingletone<GameManager>
 {
-    public int life = 1000;
+    public int life = 5;
     [SerializeField]
     private Text timeText;
     [SerializeField]
@@ -17,20 +16,15 @@ public class GameManager : MonoSingletone<GameManager>
     private GameObject menu;
     [SerializeField]
     private GameObject GameOverPrefab;
-
     public List<GameObject> Bullets;
     public Vector2 maxPosition = new Vector2(8.7f, 4.7f);
     public Vector2 minPosition = new Vector2(-8.7f, -4.7f);
-
     public float time { get; private set; } = 60f;
-
     public bool timeOver { get; private set; } = false;
     private bool isOpenMenu = false;
     public bool isDead = false;
-    private Boss_Test bossTest;
     private void Start()
     {
-        bossTest = FindObjectOfType<Boss_Test>();
         Bullets = new List<GameObject>(GameObject.FindGameObjectsWithTag("Bullet"));
         lifeText.text = string.Format("Life {0}", life);
     }
@@ -49,21 +43,20 @@ public class GameManager : MonoSingletone<GameManager>
         }
         if (!timeOver || !isDead)
         {
-           TimeCheck();
+            TimeCheck();
         }
-        
     }
     public void TimeCheck()
     {
-            if (time <= 0)
-            {
+        if (time <= 0)
+        {
             Win.SetActive(true);
             timeOver = true;
-                return;
-            }
-            time -= Time.deltaTime;
-            timeText.text = $"{time:N2}";
-            lifeText.text = string.Format("Life {0}", life);
+            return;
+        }
+        time -= Time.deltaTime;
+        timeText.text = $"{time:N2}";
+        lifeText.text = string.Format("Life {0}", life);
     }
     public void AddBulletList(GameObject bullet)
     {
@@ -71,17 +64,10 @@ public class GameManager : MonoSingletone<GameManager>
     }
     public void RemoveBulletList(GameObject bullet)
     {
-        if (bullet == null)
-            return;
-        if( Bullets.Contains( bullet) )
-        {
-            bullet.SetActive(false);
-        }
-        //Bullets.Remove(bullet);
-
+        Bullets.Remove(bullet);
     }
 
-    public void OpenMenu()
+    private void OpenMenu()
     {
         isOpenMenu = true;
         menu.SetActive(true);
@@ -102,13 +88,12 @@ public class GameManager : MonoSingletone<GameManager>
         Time.timeScale = 1;
         life = 5;
         GameOverPrefab.SetActive(false);
-        bossTest.ResetPattern();
+        Boss_Test.Instance.ResetPattern();
         isDead = false;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void ResetBullet()
     {
-        foreach(GameObject bullet in Bullets)
+        foreach (GameObject bullet in Bullets)
         {
             Destroy(bullet);
         }
