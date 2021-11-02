@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : Poolable
 {
 
     public float speed = 20f;
@@ -18,8 +18,9 @@ public class Bullet : MonoBehaviour
     }
     public void BulletDestroy()
     {
-        GameManager.Instance.RemoveBulletList(gameObject);
-        Destroy(gameObject);
+        Push();
+        //GameManager.Instance.RemoveBulletList(gameObject);
+        //Destroy(gameObject);
     }
 
 }
