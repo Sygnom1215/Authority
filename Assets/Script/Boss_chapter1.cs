@@ -43,12 +43,12 @@ public class Boss_chapter1 : MonoBehaviour
         {
             Player.Instance.StartHit();
         }
-        void Pattern1()
-        {
-            isPattern1 = true;
-            AttackObject1.SetActive(true);
-            AttackObject2.SetActive(true);
-        }
+    }
+    void Pattern1()
+    {
+        isPattern1 = true;
+        AttackObject1.SetActive(true);
+        AttackObject2.SetActive(true);
     }
     void SeaPlayer()
     {
