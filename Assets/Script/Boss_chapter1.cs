@@ -78,8 +78,8 @@ public class Boss_chapter1 : MonoBehaviour
                 lineRenderer.enabled = false;
                 yield return new WaitForSeconds(0.2f);
             }
-            yield return new WaitForSeconds(0.1f);
             Vector2 target = player.transform.position;
+            yield return new WaitForSeconds(0.1f);
             isStop = true;
             while (transform.position.x != target.x && transform.position.y != target.y)
             {
