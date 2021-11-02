@@ -87,13 +87,8 @@ public class Boss_Test : MonoBehaviour
             {
                 for (int i = 0; i < count; i++)
                 {
-                    GameObject newBullet = GameManager.Instance.ObjectPool();
-                    if( newBullet == null )
-                    {
-                        newBullet = Instantiate(bullet);
-                        GameManager.Instance.AddBulletList(newBullet);
-                    }
-
+                    var newBullet = Instantiate(bullet).GetComponent<Bullet>();
+                    GameManager.Instance.AddBulletList(newBullet.gameObject);
                     float radian = degree * Mathf.Deg2Rad;
                     bulletPosition = new Vector2(Mathf.Cos(radian), Mathf.Sin(radian) + 10f) * 0.2f;
                     newBullet.transform.position = bulletPosition;
