@@ -21,10 +21,6 @@ public class Boss_chapter1 : MonoBehaviour
         {
             Pattern1();
         }
-        if(Input.GetKey(KeyCode.Space))
-        {
-            Pattern1();    
-        }
     }
     void Pattern1()
     {

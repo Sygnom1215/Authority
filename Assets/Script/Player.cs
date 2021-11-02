@@ -97,4 +97,11 @@ public class Player : MonoSingletone<Player>
             }
         }
     }
+    public void StartHit()
+    {
+        if (!isDamage)
+        {
+            StartCoroutine(Hit());
+        }
+    }
 }

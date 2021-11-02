@@ -19,6 +19,7 @@ public class Toenail_Boss_Chapter1 : MonoBehaviour
     [SerializeField]
     float hitY;
     Coroutine dangerLine;
+    private bool isAttacted = false;
     void Start()
     {
         x = Player.Instance.transform.position.x;
@@ -41,7 +42,7 @@ public class Toenail_Boss_Chapter1 : MonoBehaviour
             {
                 if (this.gameObject.activeInHierarchy)
                 {
-                    StartCoroutine(Player.Instance.Hit());
+                    Player.Instance.StartHit();
                 }
                 Debug.Log("Hit");
             }
