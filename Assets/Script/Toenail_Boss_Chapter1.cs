@@ -19,7 +19,6 @@ public class Toenail_Boss_Chapter1 : MonoBehaviour
     [SerializeField]
     float hitY;
     Coroutine dangerLine;
-    private bool isAttacted = false;
     void Start()
     {
         x = Player.Instance.transform.position.x;
