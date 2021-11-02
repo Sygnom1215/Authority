@@ -49,43 +49,42 @@ public class Boss_chapter1 : MonoBehaviour
             AttackObject1.SetActive(true);
             AttackObject2.SetActive(true);
         }
-        void SeaPlayer()
+    }
+    void SeaPlayer()
+    {
+        rot = player.transform.position - bossPositionn.position;
+        var angle = Mathf.Atan2(rot.y, rot.x) * Mathf.Rad2Deg;
+        //bossPositionn.rotation = Quaternion.Euler(0, 0, angle);
+        //Angle = angle + 90;
+        lineRenderer.SetPosition(0, bossPositionn.position);
+        if (angle < 0)
         {
-            rot = player.transform.position - bossPositionn.position;
-            var angle = Mathf.Atan2(rot.y, rot.x) * Mathf.Rad2Deg;
-            //bossPositionn.rotation = Quaternion.Euler(0, 0, angle);
-            //Angle = angle + 90;
-            lineRenderer.SetPosition(0, bossPositionn.position);
-            if (angle < 0)
-            {
-                angle += 270;
-            }
-            lineRenderer.SetPosition(1, angle * player.transform.position);
+            angle += 270;
         }
-        void Pattern2()
+        lineRenderer.SetPosition(1, angle * player.transform.position);
+    }
+    void Pattern2()
+    {
+        isPattern2 = true;
+        isStop = false;
+        pattern2 = StartCoroutine(RushToTarget());
+    }
+    IEnumerator RushToTarget()
+    {
+        for (int i = 0; i < 3; i++)
         {
-            isPattern2 = true;
-            isStop = false;
-            pattern2 = StartCoroutine(RushToTarget());
+            lineRenderer.enabled = true;
+            yield return new WaitForSeconds(0.2f);
+            lineRenderer.enabled = false;
+            yield return new WaitForSeconds(0.2f);
         }
-
-        IEnumerator RushToTarget()
+        Vector2 target = player.transform.position;
+        yield return new WaitForSeconds(0.1f);
+        isStop = true;
+        while (transform.position.x != target.x && transform.position.y != target.y)
         {
-            for (int i = 0; i < 3; i++)
-            {
-                lineRenderer.enabled = true;
-                yield return new WaitForSeconds(0.2f);
-                lineRenderer.enabled = false;
-                yield return new WaitForSeconds(0.2f);
-            }
-            Vector2 target = player.transform.position;
-            yield return new WaitForSeconds(0.1f);
-            isStop = true;
-            while (transform.position.x != target.x && transform.position.y != target.y)
-            {
-                transform.position = Vector2.MoveTowards(transform.position, target, 0.1f);
-                yield return new WaitForSeconds(Time.deltaTime);
-            }
+            transform.position = Vector2.MoveTowards(transform.position, target, 0.1f);
+            yield return new WaitForSeconds(Time.deltaTime);
         }
     }
 }
