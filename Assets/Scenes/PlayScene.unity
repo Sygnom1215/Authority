@@ -709,8 +709,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
+      - m_Target: {fileID: 1085827362}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: OnClickRestart
         m_Mode: 1
         m_Arguments:
@@ -2443,6 +2443,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9568c5e81190334b807f2b4fba4d01f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  texts: []
+  textX: []
+  textY: []
 --- !u!1 &1094208964
 GameObject:
   m_ObjectHideFlags: 0
@@ -3128,8 +3131,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
+      - m_Target: {fileID: 1085827362}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: OnClickRestart
         m_Mode: 1
         m_Arguments:
@@ -3448,8 +3451,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
+      - m_Target: {fileID: 1085827362}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: OnClickCloseMenu
         m_Mode: 1
         m_Arguments:
