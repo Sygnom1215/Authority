@@ -18,7 +18,7 @@ public class Boss_chapter1 : MonoBehaviour
     private LineRenderer lineRenderer = null;
     private bool isStop = true;
     private bool isPattern2 = false;
-    Vector2 rot = Vector2.zero;
+    private bool isPattern3 = false;
 
     Coroutine pattern2;
     void Start()
@@ -35,9 +35,17 @@ public class Boss_chapter1 : MonoBehaviour
         {
             Pattern2();
         }
-        if (GameManager.Instance.time <= 55f && !isPattern1)
+        if (GameManager.Instance.time <= 50f && !isPattern1)
         {
             Pattern1();
+        }
+        if (GameManager.Instance.time <= 45f && !isPattern3)
+        {
+            Pattern3();
+        }
+        if (GameManager.Instance.time <= 35f && !isPattern3)
+        {
+            Pattern2();
         }
         if (Vector2.Distance(player.transform.position, transform.position) <= .5f)
         {
@@ -52,16 +60,17 @@ public class Boss_chapter1 : MonoBehaviour
     }
     void SeaPlayer()
     {
-        rot = player.transform.position - bossPositionn.position;
+        Vector2 rot = player.transform.position - bossPositionn.position;
         var angle = Mathf.Atan2(rot.y, rot.x) * Mathf.Rad2Deg;
         //bossPositionn.rotation = Quaternion.Euler(0, 0, angle);
         //Angle = angle + 90;
         lineRenderer.SetPosition(0, bossPositionn.position);
-        if (angle < 0)
-        {
-            angle += 270;
-        }
-        lineRenderer.SetPosition(1, angle * player.transform.position);
+        //if (angle < 0)
+        //{
+        //    angle += 270;
+        //}
+        //lineRenderer.SetPosition(1, angle * player.transform.position);
+        lineRenderer.SetPosition(1, player.transform.position);
     }
     void Pattern2()
     {
@@ -71,20 +80,66 @@ public class Boss_chapter1 : MonoBehaviour
     }
     IEnumerator RushToTarget()
     {
-        for (int i = 0; i < 3; i++)
+        for (int j = 0; j < 3; j++)
         {
-            lineRenderer.enabled = true;
-            yield return new WaitForSeconds(0.2f);
-            lineRenderer.enabled = false;
-            yield return new WaitForSeconds(0.2f);
+            isStop = false;
+            for (int i = 0; i < 3; i++)
+            {
+                lineRenderer.enabled = true;
+                yield return new WaitForSeconds(0.2f);
+                lineRenderer.enabled = false;
+                yield return new WaitForSeconds(0.2f);
+            }
+            Vector2 target = player.transform.position;
+            isStop = true;
+            while (transform.position.x != target.x && transform.position.y != target.y)
+            {
+                transform.position = Vector2.MoveTowards(transform.position, target, 0.1f);
+                yield return new WaitForSeconds(Time.deltaTime);
+            }
+            yield return new WaitForSeconds(2f);
         }
-        Vector2 target = player.transform.position;
-        yield return new WaitForSeconds(0.1f);
-        isStop = true;
-        while (transform.position.x != target.x && transform.position.y != target.y)
+        while (transform.position.x != 0 && transform.position.y != 0)
         {
-            transform.position = Vector2.MoveTowards(transform.position, target, 0.1f);
+            transform.position = Vector2.MoveTowards(transform.position,Vector2.zero, 0.1f);
             yield return new WaitForSeconds(Time.deltaTime);
+        }
+    }
+    void Pattern3()
+    {
+        isPattern3 = true;
+        StartCoroutine(ShotPattern3(10,3));
+    }
+    IEnumerator ShotPattern3(int count,int shotNum)
+    {
+        for (int j = 0; j < shotNum; j++)
+        {
+            float degree = 0;
+            for (int i = 0; i < count; i++)
+            {
+                var bulletObject = Instantiate(bullet).GetComponent<Bullet>();
+                GameManager.Instance.AddBulletList(bulletObject.gameObject);
+                float radian = degree * Mathf.Deg2Rad;
+                bulletObject.transform.position = new Vector2(Mathf.Cos(radian)+ transform.position.x, Mathf.Sin(radian) + transform.position.y) * 0.2f;
+                degree += 360 / count;
+                degree = degree >= 360 ? degree - 360 : degree;
+                bulletObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, degree));
+            }
+            yield return new WaitForSeconds(1f);
+            foreach (GameObject bulletObject in GameManager.Instance.Bullets)
+            {
+                var bullet = bulletObject.GetComponent<Bullet>();
+                bullet.speed = 0f;
+                Vector2 rot = player.transform.position - bullet.transform.position;
+                var angle = Mathf.Atan2(rot.y, rot.x) * Mathf.Rad2Deg;
+                bullet.transform.rotation = Quaternion.Euler(0, 0, angle + 90);
+            }
+            foreach (GameObject bulletObject in GameManager.Instance.Bullets)
+            {
+                var bullet = bulletObject.GetComponent<Bullet>();
+                bullet.speed = 10f;
+            }
+            yield return new WaitForSeconds(1.5f);
         }
     }
 }

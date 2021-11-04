@@ -84,7 +84,8 @@ public class Boss_Test : MonoSingletone<Boss_Test>
             for (int i = 0; i < count; i++)
             {
                 var bulletObject = Instantiate(bullet).GetComponent<Bullet>();
-                PoolManager.Instance.pool.Pop();    //GameManager.Instance.AddBulletList(bulletObject.gameObject);
+                GameManager.Instance.AddBulletList(bulletObject.gameObject);
+                //PoolManager.Instance.pool.Pop();    
                 float radian = degree * Mathf.Deg2Rad;
                 bulletPosition = new Vector2(Mathf.Cos(radian), Mathf.Sin(radian) + 10f) * 0.2f;
                 bulletObject.transform.position = bulletPosition;
