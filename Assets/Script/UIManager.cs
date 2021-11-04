@@ -6,11 +6,15 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     [SerializeField]
-    private List<Text> texts = new List<Text>();
+    private GameObject textObject;
     [SerializeField]
-    private List<float> textX = new List<float>();
+    private Text text;
     [SerializeField]
-    private List<float> textY = new List<float>();
+    private List<string> texts = new List<string>();
+    [SerializeField]
+    private List<Vector2> textPos = new List<Vector2>();
+
+    private int textCnt = 0;
     /* 해야 하는 거 
      * pause << 당장에 만들 수 있는거 ??
      * Scene Out 
@@ -18,7 +22,8 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        
+        text.text = string.Format(texts[textCnt]);
+        textObject.GetComponent<RectTransform>().anchoredPosition = textPos[textCnt];
     }
 
     void Update()
