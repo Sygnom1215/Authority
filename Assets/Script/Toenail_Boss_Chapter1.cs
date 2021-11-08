@@ -20,21 +20,14 @@ public class Toenail_Boss_Chapter1 : MonoBehaviour
     float hitY;
     Coroutine dangerLine;
     void Start()
-    {
-        x = Player.Instance.transform.position.x;
-        y = Player.Instance.transform.position.y;
+    { 
         sprite = GetComponent<SpriteRenderer>();
         line = GetComponent<LineRenderer>();
-        line.SetPosition(0, new Vector2(x - addX,y - addY));
-        line.SetPosition(1, new Vector2(x + addX,y + addY));
     }
 
     void Update()
     {
-        if(GameManager.Instance.time <= 50f)
-        {
-            gameObject.SetActive(false);
-        }
+        Invoke("OffObject", 4f);
         if (isOnSprite)
         {
             if (Mathf.Abs(transform.position.y - Player.Instance.transform.position.y) <= hitY && Mathf.Abs(transform.position.x - Player.Instance.transform.position.x) <= hitX)
@@ -54,7 +47,11 @@ public class Toenail_Boss_Chapter1 : MonoBehaviour
     IEnumerator Danger()
     {
         isDanger = true;
-        for(int i =0; i <2; i++)
+        x = Player.Instance.transform.position.x;
+        y = Player.Instance.transform.position.y;
+        line.SetPosition(0, new Vector2(x - addX, y - addY));
+        line.SetPosition(1, new Vector2(x + addX, y + addY));
+        for (int i =0; i <2; i++)
         {
             line.enabled = true;
             yield return new WaitForSeconds(0.15f);
@@ -68,5 +65,13 @@ public class Toenail_Boss_Chapter1 : MonoBehaviour
         sprite.enabled = true;
         transform.position = new Vector2(x,y);
         isOnSprite = true;
+    }
+    void OffObject()
+    {
+        sprite.enabled = false;
+        transform.position = Vector2.zero;
+        isOnSprite = false;
+        isDanger = false;
+        gameObject.SetActive(false);
     }
 }
