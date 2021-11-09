@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : Poolable
 {
     public bool isPatterned = false;
-    public float speed = 20f;
+    public float speed = 0f;
 
     void Start()
     {
@@ -19,9 +19,11 @@ public class Bullet : MonoBehaviour
     }
     public void BulletDestroy()
     {
-        //Push();
+        transform.position = Vector2.zero;
+        isPatterned = false;
         GameManager.Instance.RemoveBulletList(gameObject);
-        Destroy(gameObject);
+        Push();
+        //Destroy(gameObject);
     }
     void CheckPosition()
     {

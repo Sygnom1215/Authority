@@ -14,9 +14,9 @@ public class Boss_chapter1 : MonoBehaviour
     private GameObject AttackObject1;
     [SerializeField]
     private GameObject AttackObject2;
-    private bool isPattern1 = false;
     private LineRenderer lineRenderer = null;
     private bool isStop = true;
+    private bool isPattern1 = false;
     private bool isPattern2 = false;
     private bool isPattern3 = false;
     private bool isPattern4 = false;
@@ -88,6 +88,7 @@ public class Boss_chapter1 : MonoBehaviour
     {
         isPattern2 = true;
         isStop = false;
+        speed = 0.2f;
         pattern2 = StartCoroutine(RushToTarget());
     }
     void Pattern3()
@@ -100,7 +101,7 @@ public class Boss_chapter1 : MonoBehaviour
         isPattern4 = true;
         AttackObject1.SetActive(true);
         AttackObject2.SetActive(true);
-        speed = 0.25f;
+        speed = 0.22f;
         StartCoroutine(RushToTarget());
     }
     void Pattern5()
@@ -143,13 +144,16 @@ public class Boss_chapter1 : MonoBehaviour
             float degree = 0;
             for (int i = 0; i < count; i++)
             {
-                var bulletObject = Instantiate(bullet).GetComponent<Bullet>();
+                var bulletObject = PoolManager.Instance.pool.Pop().GetComponent<Bullet>();
+                bulletObject.transform.position = Vector2.zero;
+                //var bulletObject = Instantiate(bullet).GetComponent<Bullet>();
                 GameManager.Instance.AddBulletList(bulletObject.gameObject);
                 float radian = degree * Mathf.Deg2Rad;
                 bulletObject.transform.position = new Vector2(Mathf.Cos(radian), Mathf.Sin(radian)) * 0.1f;
                 degree += 360 / count;
                 degree = degree >= 360 ? degree - 360 : degree;
                 bulletObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, degree));
+                bulletObject.speed = 5f;
             }
             yield return new WaitForSeconds(0.8f);
             foreach (GameObject bulletObject in GameManager.Instance.Bullets)
@@ -163,7 +167,7 @@ public class Boss_chapter1 : MonoBehaviour
             foreach (GameObject bulletObject in GameManager.Instance.Bullets)
             {
                 var bullet = bulletObject.GetComponent<Bullet>();
-                bullet.speed = 10f;
+                bullet.speed = 15f;
             }
             yield return new WaitForSeconds(1.5f);
         }
@@ -176,7 +180,7 @@ public class Boss_chapter1 : MonoBehaviour
             float degree = 0;
             for (int i = 0; i < count; i++)
             {
-                var bulletObject = Instantiate(bullet).GetComponent<Bullet>();
+                var bulletObject = PoolManager.Instance.pool.Pop().GetComponent<Bullet>();
                 GameManager.Instance.AddBulletList(bulletObject.gameObject);
                 float radian = degree * Mathf.Deg2Rad;
                 bulletObject.isPatterned = true;
@@ -184,6 +188,7 @@ public class Boss_chapter1 : MonoBehaviour
                 degree += 360 / count;
                 degree = degree >= 360 ? degree - 360 : degree;
                 bulletObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, degree));
+                bulletObject.speed = 5f;
             }
             yield return new WaitForSeconds(0.5f);
             foreach (GameObject bulletObject in GameManager.Instance.Bullets)
@@ -198,8 +203,8 @@ public class Boss_chapter1 : MonoBehaviour
                 Vector2 rot = player.transform.position - bullet.transform.position;
                 var angle = Mathf.Atan2(rot.y, rot.x) * Mathf.Rad2Deg;
                 bullet.transform.rotation = Quaternion.Euler(0, 0, angle + 90);
-                bullet.speed = 25f;
-                yield return new WaitForSeconds(0.2f);
+                bullet.speed = 30f;
+                yield return new WaitForSeconds(0.1f);
             }
             foreach (GameObject bulletObject in GameManager.Instance.Bullets)
             {
