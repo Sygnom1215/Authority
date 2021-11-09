@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -38,5 +39,10 @@ public class UIManager : MonoBehaviour
     public void OnClickRestart()
     {
         GameManager.Instance.Boss_Test_PatternReset();
+    }
+    public void OnClickGoToMenu()
+    {
+        SceneManager.LoadScene("Stage");
+        Time.timeScale = 1;
     }
 }
