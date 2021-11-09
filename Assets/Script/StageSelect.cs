@@ -2,16 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class StageSelect : MonoBehaviour
 {
+    [SerializeField]
+    private Text stageLoreText;
+    [SerializeField]
+    private List<string> texts = new List<string>();
     private int cnt = 0;
+
     private bool isMaxLeft = false;
     private bool isMaxRight = false;
-    void Start()
-    {
-
-    }
 
     void Update()
     {
@@ -19,10 +21,7 @@ public class StageSelect : MonoBehaviour
         else isMaxLeft = false;
         if (cnt == 4) isMaxRight = true;
         else isMaxRight = false;
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            
-        }
+        stageLoreText.text = texts[cnt];
     }
     public void OnClickRight()
     {
