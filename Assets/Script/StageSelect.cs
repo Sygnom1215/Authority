@@ -41,6 +41,7 @@ public class StageSelect : MonoBehaviour
         {
             case 0:
                 SceneManager.LoadScene("PlayScene");
+                Time.timeScale = 1;
                 break;
             case 1:
                 break;

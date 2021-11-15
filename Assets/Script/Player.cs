@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Player : MonoSingletone<Player>
+public class Player : MonoBehaviour
 {
     [SerializeField]
     private float speed = 3f;
@@ -19,7 +19,23 @@ public class Player : MonoSingletone<Player>
     [SerializeField]
     private Sprite[] sprites = null;
 
-    
+    public static Player Instance = null;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            //DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            if (Instance != this)
+            {
+                Destroy(this.gameObject);
+            }
+        }
+    }
 
     void Start()
     {

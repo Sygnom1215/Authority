@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
-public class GameManager : MonoSingletone<GameManager>
+using UnityEngine.SceneManagement;
+public class GameManager : MonoBehaviour
 {
     public int life = 5;
     [SerializeField]
@@ -23,6 +23,25 @@ public class GameManager : MonoSingletone<GameManager>
     public bool timeOver { get; private set; } = false;
     private bool isOpenMenu = false;
     public bool isDead = false;
+
+    public static GameManager Instance = null;
+
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+            //DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            if(Instance != this)
+            {
+                Destroy(this.gameObject);
+            }
+        }
+    }
+
     private void Start()
     {
         Bullets = new List<GameObject>(GameObject.FindGameObjectsWithTag("Bullet"));
@@ -82,14 +101,16 @@ public class GameManager : MonoSingletone<GameManager>
     }
     public void Boss_Test_PatternReset()
     {
-        ResetBullet();
-        Player.Instance.transform.position = new Vector2(0, -3);
-        time = 60f;
+        //ResetBullet();
+        //Player.Instance.transform.position = new Vector2(0, -3);
+        //time = 60f;
+        //Time.timeScale = 1;
+        //life = 5;
+        //GameOverPrefab.SetActive(false);
+        //Boss_Test.Instance.ResetPattern();
+        //isDead = false;
+        SceneManager.LoadScene("PlayScene");
         Time.timeScale = 1;
-        life = 5;
-        GameOverPrefab.SetActive(false);
-        Boss_Test.Instance.ResetPattern();
-        isDead = false;
     }
     public void ResetBullet()
     {
