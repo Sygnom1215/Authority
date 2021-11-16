@@ -20,7 +20,10 @@ public class Boss_chapter1 : MonoBehaviour
     private bool isPattern2 = false;
     private bool isPattern3 = false;
     private bool isPattern4 = false;
+    private bool isPattern4_1 = false;
     private bool isPattern5 = false;
+    private bool isPattern6 = false;
+    private bool isRainShot = false;
     Coroutine pattern2;
     private float speed = 0.1f;
     void Start()
@@ -43,20 +46,35 @@ public class Boss_chapter1 : MonoBehaviour
             isPattern2 = false;
             Pattern2();
         }
-        if (GameManager.Instance.time <= 45f && !isPattern3)
+        if (GameManager.Instance.time <= 47f && !isPattern3)
         {
             isPattern3 = false;
             Pattern3();
         }
-        if (GameManager.Instance.time <= 32f && !isPattern4)
+        if (GameManager.Instance.time <= 37f && !isPattern4)
         {
             isPattern4 = false;
             Pattern4();
         }
-        if (GameManager.Instance.time <= 20f && !isPattern5)
+        if (GameManager.Instance.time <= 35f && !isPattern4_1)
+        {
+            isPattern4_1 = true;
+            Pattern4_1();
+        }
+        if (GameManager.Instance.time <= 26f && !isPattern5)
         {
             isPattern5 = false;
             Pattern5();
+        }
+        if (GameManager.Instance.time <= 20f && !isPattern6)
+        {
+            isPattern6 = false;
+            Pattern6();
+        }
+        if (GameManager.Instance.time <= 10f && !isRainShot)
+        {
+            isRainShot = true;
+            StartCoroutine(RainShot());
         }
         if (Vector2.Distance(player.transform.position, transform.position) <= .5f)
         {
@@ -88,7 +106,7 @@ public class Boss_chapter1 : MonoBehaviour
     {
         isPattern2 = true;
         isStop = false;
-        speed = 0.2f;
+        speed = 0.08f;
         pattern2 = StartCoroutine(RushToTarget());
     }
     void Pattern3()
@@ -99,15 +117,18 @@ public class Boss_chapter1 : MonoBehaviour
     void Pattern4()
     {
         isPattern4 = true;
-        AttackObject1.SetActive(true);
-        AttackObject2.SetActive(true);
-        speed = 0.22f;
+        speed = 0.15f;
         StartCoroutine(RushToTarget());
     }
     void Pattern5()
     {
         isPattern5 = true;
         StartCoroutine(ShotPattern5(30, 1));
+    }
+    void Pattern6()
+    {
+        isPattern6 = true;
+        StartCoroutine(SpinShot(20));
     }
     IEnumerator RushToTarget()
     {
@@ -146,16 +167,15 @@ public class Boss_chapter1 : MonoBehaviour
             {
                 var bulletObject = PoolManager.Instance.pool.Pop().GetComponent<Bullet>();
                 bulletObject.transform.position = Vector2.zero;
-                //var bulletObject = Instantiate(bullet).GetComponent<Bullet>();
                 GameManager.Instance.AddBulletList(bulletObject.gameObject);
                 float radian = degree * Mathf.Deg2Rad;
                 bulletObject.transform.position = new Vector2(Mathf.Cos(radian), Mathf.Sin(radian)) * 0.1f;
                 degree += 360 / count;
                 degree = degree >= 360 ? degree - 360 : degree;
                 bulletObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, degree));
-                bulletObject.speed = 5f;
+                bulletObject.speed = 3f;
             }
-            yield return new WaitForSeconds(0.8f);
+            yield return new WaitForSeconds(1f);
             foreach (GameObject bulletObject in GameManager.Instance.Bullets)
             {
                 var bullet = bulletObject.GetComponent<Bullet>();
@@ -172,7 +192,11 @@ public class Boss_chapter1 : MonoBehaviour
             yield return new WaitForSeconds(1.5f);
         }
     }
-
+    void Pattern4_1()
+    {
+        AttackObject1.SetActive(true);
+        AttackObject2.SetActive(true);
+    }
     IEnumerator ShotPattern5(int count, int shotNum)
     {
         for (int j = 0; j < shotNum; j++)
@@ -188,7 +212,7 @@ public class Boss_chapter1 : MonoBehaviour
                 degree += 360 / count;
                 degree = degree >= 360 ? degree - 360 : degree;
                 bulletObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, degree));
-                bulletObject.speed = 5f;
+                bulletObject.speed = 3f;
             }
             yield return new WaitForSeconds(0.5f);
             foreach (GameObject bulletObject in GameManager.Instance.Bullets)
@@ -212,6 +236,42 @@ public class Boss_chapter1 : MonoBehaviour
                 bullet.isPatterned = false;
             }
             yield return new WaitForSeconds(1.5f);
+        }
+    }
+
+    IEnumerator SpinShot(int count)
+    {
+        float degree = 0;
+        for (int j = 0; j < 20; j++)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                var bulletObject = PoolManager.Instance.pool.Pop().GetComponent<Bullet>();
+                GameManager.Instance.AddBulletList(bulletObject.gameObject);
+                bulletObject.speed = 7f;
+                float radian = degree * Mathf.Deg2Rad;
+                bulletObject.transform.position = new Vector2(Mathf.Cos(radian), Mathf.Sin(radian)) * 0.2f;
+                degree += 360 / count;
+                bulletObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, degree));
+                degree = degree >= 360 ? degree - 360 : degree;
+            }
+            degree = degree >= 360 ? degree - 360 : degree;
+            degree += 10;
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+    public IEnumerator RainShot()
+    {
+        float randomX = 0;
+        while (GameManager.Instance.time >= 0f)
+        {
+                randomX = Random.Range(-8.7f, 8.7f);
+                var bulletObject = PoolManager.Instance.pool.Pop().GetComponent<Bullet>();
+                GameManager.Instance.AddBulletList(bulletObject.gameObject);
+                bulletObject.transform.position = new Vector2(randomX, 4.6f);
+                bulletObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
+                bulletObject.speed = 20f;
+            yield return new WaitForSeconds(0.1f);
         }
     }
 }
