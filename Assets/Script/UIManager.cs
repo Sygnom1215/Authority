@@ -38,6 +38,7 @@ public class UIManager : MonoBehaviour
     }
     public void OnClickRestart()
     {
+        AudioManager.Instance.PlayButtonSound();
         GameManager.Instance.Boss_Test_PatternReset();
     }
     public void OnClickGoToMenu()
