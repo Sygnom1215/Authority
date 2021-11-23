@@ -15,16 +15,27 @@ public class StageSelect : MonoBehaviour
     [SerializeField]
     private List<string> stageLoreTexts = new List<string>();
     [SerializeField]
+    private Sprite[] sprites = null;
+    [SerializeField]
     private GameObject lorePanel;
     [SerializeField]
     private GameObject leftButton;
     [SerializeField]
     private GameObject rightButton;
+    [SerializeField]
+    private GameObject menu;
+
     private int cnt = 0;
+    private SpriteRenderer spriteRenderer;
 
     private bool isMaxLeft = false;
     private bool isMaxRight = false;
     private bool isOpenLore = false;
+    private bool isOpenMenu = false;
+    private void Start()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
     void Update()
     {
@@ -35,8 +46,20 @@ public class StageSelect : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (!isOpenLore) return;
-            OnClickCloseLore();
+            if (isOpenLore)
+            {
+                OnClickCloseLore();
+            }
+            else if (isOpenMenu)
+            {
+                menu.SetActive(false);
+                isOpenMenu = false;
+            }
+            else
+            {
+                menu.SetActive(true);
+                isOpenMenu = true;
+            }
         }
         if (Input.GetKeyDown(KeyCode.A) | Input.GetKeyDown(KeyCode.LeftArrow))
             OnClickLeft();
@@ -71,12 +94,14 @@ public class StageSelect : MonoBehaviour
     {
         if (isMaxRight) return;
         cnt++;
+        spriteRenderer.sprite = sprites[1];
         transform.Translate(Vector2.right * 50, Space.Self);
     }
     public void OnClickLeft()
     {
         if (isMaxLeft) return;
         cnt--;
+        spriteRenderer.sprite = sprites[0];
         transform.Translate(Vector2.left * 50, Space.Self);
     }
     public void OnClickSelect()
@@ -88,6 +113,12 @@ public class StageSelect : MonoBehaviour
     {
         isOpenLore = false;
         lorePanel.SetActive(false);
+    }
+    public void OnClickTaecho()
+    {
+        //Debug.Log("저기봐 피카츄 태초마을이야! / 피카피카!");
+        SceneManager.LoadScene("GameStart");
+        Time.timeScale = 1;
     }
     public void OnClickStart()
     {
