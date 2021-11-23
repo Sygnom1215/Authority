@@ -6,13 +6,16 @@ using UnityEngine.SceneManagement;
 public class GameStartManager : MonoBehaviour
 {
     [SerializeField]
+    private GameObject exitPanel;
+    [SerializeField]
     private GameObject gameLore;
     [SerializeField]
     private GameObject[] lores;
 
     private int loreCnt = 0;
 
-    private bool isOpenLore;
+    private bool isOpenLore = false;
+    private bool isOpenExit = false;
 
     private void Update()
     {
@@ -24,7 +27,14 @@ public class GameStartManager : MonoBehaviour
             }
             else
             {
-
+                if(isOpenExit)
+                {
+                    OnClickCloseExit();
+                }
+                else
+                {
+                    OnClickExit();
+                }
             }
         }
         if (isOpenLore)
@@ -69,6 +79,17 @@ public class GameStartManager : MonoBehaviour
     }
     public void OnClickExit()
     {
-
+        if (isOpenExit) return;
+        exitPanel.SetActive(true);
+        isOpenExit = true;
+    }
+    public void OnClickCloseExit()
+    {
+        isOpenExit = false;
+        exitPanel.SetActive(false);
+    }
+    public void OnClickGameQuit()
+    {
+        Application.Quit();
     }
 }

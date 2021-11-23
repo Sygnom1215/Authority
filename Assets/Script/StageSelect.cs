@@ -62,9 +62,17 @@ public class StageSelect : MonoBehaviour
             }
         }
         if (Input.GetKeyDown(KeyCode.A) | Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            if (isOpenLore)
+                OnClickCloseLore();
             OnClickLeft();
+        }
         if (Input.GetKeyDown(KeyCode.D) | Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            if (isOpenLore)
+                OnClickCloseLore();
             OnClickRight();
+        }
     }
     public void CheckCnt()
     {
@@ -93,6 +101,7 @@ public class StageSelect : MonoBehaviour
     public void OnClickRight()
     {
         if (isMaxRight) return;
+        AudioManager.Instance.PlayButtonSound();
         cnt++;
         spriteRenderer.sprite = sprites[1];
         transform.Translate(Vector2.right * 50, Space.Self);
@@ -100,6 +109,7 @@ public class StageSelect : MonoBehaviour
     public void OnClickLeft()
     {
         if (isMaxLeft) return;
+        AudioManager.Instance.PlayButtonSound();
         cnt--;
         spriteRenderer.sprite = sprites[0];
         transform.Translate(Vector2.left * 50, Space.Self);
