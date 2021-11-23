@@ -2040,3 +2040,5 @@ MonoBehaviour:
   - "\uB0E5"
   - "\uACE0\uC591\uC774\uC870\uC544"
   lorePanel: {fileID: 573797047}
+  leftButton: {fileID: 169320223}
+  rightButton: {fileID: 421461313}

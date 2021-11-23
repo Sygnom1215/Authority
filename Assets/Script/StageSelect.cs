@@ -16,6 +16,10 @@ public class StageSelect : MonoBehaviour
     private List<string> stageLoreTexts = new List<string>();
     [SerializeField]
     private GameObject lorePanel;
+    [SerializeField]
+    private GameObject leftButton;
+    [SerializeField]
+    private GameObject rightButton;
     private int cnt = 0;
 
     private bool isMaxLeft = false;
@@ -24,11 +28,7 @@ public class StageSelect : MonoBehaviour
 
     void Update()
     {
-        if (cnt == 0) isMaxLeft = true;
-        else isMaxLeft = false;
-
-        if (cnt == 4) isMaxRight = true;
-        else isMaxRight = false;
+        CheckCnt();
 
         stageText.text = stageTexts[cnt];
         stageLoreText.text = stageLoreTexts[cnt];
@@ -42,6 +42,30 @@ public class StageSelect : MonoBehaviour
             OnClickLeft();
         if (Input.GetKeyDown(KeyCode.D) | Input.GetKeyDown(KeyCode.RightArrow))
             OnClickRight();
+    }
+    public void CheckCnt()
+    {
+        if (cnt == 0)
+        {
+            isMaxLeft = true;
+            leftButton.SetActive(false);
+        }
+        else
+        {
+            isMaxLeft = false;
+            leftButton.SetActive(true);
+        }
+
+        if (cnt == 4)
+        {
+            isMaxRight = true;
+            rightButton.SetActive(false);
+        }
+        else
+        {
+            isMaxRight = false;
+            rightButton.SetActive(true);
+        }
     }
     public void OnClickRight()
     {
