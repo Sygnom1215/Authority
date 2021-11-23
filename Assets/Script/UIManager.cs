@@ -41,7 +41,7 @@ public class UIManager : MonoBehaviour
         AudioManager.Instance.PlayButtonSound();
         GameManager.Instance.Boss_Test_PatternReset();
     }
-    public void OnClickGoToMenu()
+    public void OnClickStageSelect()
     {
         SceneManager.LoadScene("Stage");
         Time.timeScale = 1;
