@@ -9,11 +9,13 @@ public class StageSelect : MonoBehaviour
     [SerializeField]
     private Text stageText;
     [SerializeField]
-    private Text stageLoreText;
+    private Text loreText;
     [SerializeField]
     private List<string> stageTexts = new List<string>();
     [SerializeField]
-    private List<string> stageLoreTexts = new List<string>();
+    private List<string> loreTexts = new List<string>();
+    [SerializeField]
+    private GameObject[] stageLoreTexts;
     [SerializeField]
     private Sprite[] sprites = null;
     [SerializeField]
@@ -42,7 +44,7 @@ public class StageSelect : MonoBehaviour
         CheckCnt();
 
         stageText.text = stageTexts[cnt];
-        stageLoreText.text = stageLoreTexts[cnt];
+        loreText.text = loreTexts[cnt];
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -118,11 +120,13 @@ public class StageSelect : MonoBehaviour
     {
         isOpenLore = true;
         lorePanel.SetActive(true);
+        stageLoreTexts[cnt].SetActive(true);
     }
     public void OnClickCloseLore()
     {
         isOpenLore = false;
         lorePanel.SetActive(false);
+        stageLoreTexts[cnt].SetActive(false);
     }
     public void OnClickTaecho()
     {
