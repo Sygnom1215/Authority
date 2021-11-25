@@ -110,7 +110,7 @@ public class Boss_chapter1 : MonoBehaviour
     {
         isPattern2 = true;
         isStop = false;
-        speed = 0.08f;
+        speed = 0.5f;
         StartCoroutine(RushToTarget());
     }
     void Pattern3()
@@ -121,7 +121,7 @@ public class Boss_chapter1 : MonoBehaviour
     void Pattern4()
     {
         isPattern4 = true;
-        speed = 0.15f;
+        speed = 1f;
         StartCoroutine(RushToTarget());
     }
     void Pattern5()
@@ -157,7 +157,7 @@ public class Boss_chapter1 : MonoBehaviour
         }
         while (transform.position.x != 0 && transform.position.y != 0)
         {
-            transform.position = Vector2.MoveTowards(transform.position, Vector2.zero, 0.1f);
+            transform.position = Vector2.MoveTowards(transform.position, Vector2.zero, 1f);
             yield return new WaitForSeconds(Time.deltaTime);
         }
     }
