@@ -9,41 +9,72 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private GameObject textObject;
     [SerializeField]
+    private RectTransform textObjectPos;
+    [SerializeField]
     private Text text;
     [SerializeField]
     private List<string> texts = new List<string>();
     [SerializeField]
     private List<Vector2> textPos = new List<Vector2>();
-
+    [SerializeField]
+    private GameObject button = null;
+    private int endTextCnt = 0;
     private int textCnt = 0;
+    public bool isStroyed { get; private set; } = false;
     /* 해야 하는 거 
      * pause << 당장에 만들 수 있는거 ??
      * Scene Out 
      */
 
-    void Start()
-    {
-        text.text = string.Format(texts[textCnt]);
-        textObject.GetComponent<RectTransform>().anchoredPosition = textPos[textCnt];
-    }
-
-    void Update()
-    {
-        
-    }
-
     public void OnClickCloseMenu()
     {
-        GameManager.Instance.CloseMenu();
+        if (!isStroyed)
+        {
+            GameManager.Instance.CloseMenu();
+        }
     }
     public void OnClickRestart()
     {
-        AudioManager.Instance.PlayButtonSound();
-        GameManager.Instance.Boss_Test_PatternReset();
+        if (!isStroyed)
+        {
+            GameManager.Instance.Boss_Test_PatternReset();
+        }
     }
-    public void OnClickStageSelect()
+    public void OnClickGoToMenu()
     {
-        SceneManager.LoadScene("Stage");
-        Time.timeScale = 1;
+        if (!isStroyed)
+        {
+            SceneManager.LoadScene("Stage");
+            Time.timeScale = 1;
+        }
+    }
+    public void OnStoryText(int endTextNumber)
+    {
+        Time.timeScale = 0;
+        button.SetActive(true);
+        isStroyed = true;
+        endTextCnt = endTextNumber;
+        text.text = string.Format(texts[textCnt]);
+        textObjectPos.anchoredPosition = textPos[textCnt];
+        textObject.SetActive(true);
+        textCnt++;
+    }
+    public void NextText()
+    {
+        if (isStroyed)
+        {
+                if (textCnt >= endTextCnt)
+                {
+                    Debug.Log(textCnt & endTextCnt);
+                    Time.timeScale = 1;
+                    textObject.SetActive(false);
+                    button.SetActive(false);
+                    isStroyed = false;
+                }
+                else
+                {
+                    OnStoryText(endTextCnt);
+                }
+        }
     }
 }

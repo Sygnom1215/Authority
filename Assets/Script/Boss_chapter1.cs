@@ -14,6 +14,8 @@ public class Boss_chapter1 : MonoBehaviour
     private GameObject AttackObject1;
     [SerializeField]
     private GameObject AttackObject2;
+    [SerializeField]
+    private UIManager uIManager;
     private LineRenderer lineRenderer = null;
     private bool isStop = true;
     private bool isPattern1 = false;
@@ -24,11 +26,11 @@ public class Boss_chapter1 : MonoBehaviour
     private bool isPattern5 = false;
     private bool isPattern6 = false;
     private bool isRainShot = false;
-    Coroutine pattern2;
     private float speed = 0.1f;
     void Start()
-    { 
+    {
         lineRenderer = GetComponent<LineRenderer>();
+        uIManager.OnStoryText(4);
     }
     void Update()
     {
@@ -38,22 +40,23 @@ public class Boss_chapter1 : MonoBehaviour
         }
         if (GameManager.Instance.time <= 52f && !isPattern1)
         {
-            isPattern1 = false;
+            isPattern1 = true;
             Pattern1();
         }
         if (GameManager.Instance.time <= 59f && !isPattern2)
         {
-            isPattern2 = false;
+            isPattern2 = true;
             Pattern2();
         }
         if (GameManager.Instance.time <= 47f && !isPattern3)
         {
-            isPattern3 = false;
+            uIManager.OnStoryText(9);
+            isPattern3 = true;
             Pattern3();
         }
         if (GameManager.Instance.time <= 37f && !isPattern4)
         {
-            isPattern4 = false;
+            isPattern4 = true;
             Pattern4();
         }
         if (GameManager.Instance.time <= 35f && !isPattern4_1)
@@ -63,12 +66,13 @@ public class Boss_chapter1 : MonoBehaviour
         }
         if (GameManager.Instance.time <= 26f && !isPattern5)
         {
-            isPattern5 = false;
+            uIManager.OnStoryText(17);
+            isPattern5 = true;
             Pattern5();
         }
         if (GameManager.Instance.time <= 20f && !isPattern6)
         {
-            isPattern6 = false;
+            isPattern6 = true;
             Pattern6();
         }
         if (GameManager.Instance.time <= 10f && !isRainShot)
@@ -107,7 +111,7 @@ public class Boss_chapter1 : MonoBehaviour
         isPattern2 = true;
         isStop = false;
         speed = 0.08f;
-        pattern2 = StartCoroutine(RushToTarget());
+        StartCoroutine(RushToTarget());
     }
     void Pattern3()
     {
@@ -153,12 +157,12 @@ public class Boss_chapter1 : MonoBehaviour
         }
         while (transform.position.x != 0 && transform.position.y != 0)
         {
-            transform.position = Vector2.MoveTowards(transform.position,Vector2.zero, 0.1f);
+            transform.position = Vector2.MoveTowards(transform.position, Vector2.zero, 0.1f);
             yield return new WaitForSeconds(Time.deltaTime);
         }
     }
 
-    IEnumerator ShotPattern3(int count,int shotNum)
+    IEnumerator ShotPattern3(int count, int shotNum)
     {
         for (int j = 0; j < shotNum; j++)
         {
@@ -208,7 +212,7 @@ public class Boss_chapter1 : MonoBehaviour
                 GameManager.Instance.AddBulletList(bulletObject.gameObject);
                 float radian = degree * Mathf.Deg2Rad;
                 bulletObject.isPatterned = true;
-                bulletObject.transform.position = new Vector2(Mathf.Cos(radian),Mathf.Sin(radian)) * 1f;
+                bulletObject.transform.position = new Vector2(Mathf.Cos(radian), Mathf.Sin(radian)) * 1f;
                 degree += 360 / count;
                 degree = degree >= 360 ? degree - 360 : degree;
                 bulletObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, degree));
@@ -263,15 +267,17 @@ public class Boss_chapter1 : MonoBehaviour
     public IEnumerator RainShot()
     {
         float randomX = 0;
-        while (GameManager.Instance.time >= 0f)
+        while (GameManager.Instance.time >= 1.5f)
         {
-                randomX = Random.Range(-8.7f, 8.7f);
-                var bulletObject = PoolManager.Instance.pool.Pop().GetComponent<Bullet>();
-                GameManager.Instance.AddBulletList(bulletObject.gameObject);
-                bulletObject.transform.position = new Vector2(randomX, 4.6f);
-                bulletObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
-                bulletObject.speed = 20f;
+            randomX = Random.Range(-8.7f, 8.7f);
+            var bulletObject = PoolManager.Instance.pool.Pop().GetComponent<Bullet>();
+            GameManager.Instance.AddBulletList(bulletObject.gameObject);
+            bulletObject.transform.position = new Vector2(randomX, 4.6f);
+            bulletObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
+            bulletObject.speed = 20f;
             yield return new WaitForSeconds(0.1f);
         }
+        yield return new WaitForSeconds(0.5f);
+        uIManager.OnStoryText(27);
     }
 }
