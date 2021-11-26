@@ -16,12 +16,14 @@ public class GameManager : MonoBehaviour
     private GameObject menu;
     [SerializeField]
     private GameObject GameOverPrefab;
+    [SerializeField]
+    private UIManager uIManager;
     public List<GameObject> Bullets;
     public Vector2 maxPosition = new Vector2(8.7f, 4.7f);
     public Vector2 minPosition = new Vector2(-8.7f, -4.7f);
     public float time { get; private set; } = 60f;
     public bool timeOver { get; private set; } = false;
-    private bool isOpenMenu = false;
+    public bool isOpenMenu = false;
     public bool isDead = false;
 
     public static GameManager Instance = null;
@@ -101,14 +103,6 @@ public class GameManager : MonoBehaviour
     }
     public void Boss_Test_PatternReset()
     {
-        //ResetBullet();
-        //Player.Instance.transform.position = new Vector2(0, -3);
-        //time = 60f;
-        //Time.timeScale = 1;
-        //life = 5;
-        //GameOverPrefab.SetActive(false);
-        //Boss_Test.Instance.ResetPattern();
-        //isDead = false;
         SceneManager.LoadScene("PlayScene");
         Time.timeScale = 1;
     }

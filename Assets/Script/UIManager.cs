@@ -7,9 +7,13 @@ using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
 {
     [SerializeField]
+    private GameObject storyTextPanel;
+    [SerializeField]
     private GameObject textObject;
     [SerializeField]
     private RectTransform textObjectPos;
+    [SerializeField]
+    private Image characterImage;
     [SerializeField]
     private Text text;
     [SerializeField]
@@ -17,7 +21,7 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private List<Vector2> textPos = new List<Vector2>();
     [SerializeField]
-    private GameObject button = null;
+    private List<Sprite> characterSprite = new List<Sprite>();
     private int endTextCnt = 0;
     private int textCnt = 0;
     public bool isStroyed { get; private set; } = false;
@@ -25,7 +29,30 @@ public class UIManager : MonoBehaviour
      * pause << 당장에 만들 수 있는거 ??
      * Scene Out 
      */
-
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            if (!GameManager.Instance.isOpenMenu)
+            {
+                if (isStroyed)
+                {
+                    if (textCnt >= endTextCnt)
+                    {
+                        Debug.Log(textCnt & endTextCnt);
+                        Time.timeScale = 1;
+                        //textObject.SetActive(false);
+                        storyTextPanel.SetActive(false);
+                        isStroyed = false;
+                    }
+                    else
+                    {
+                        OnStoryText(endTextCnt);
+                    }
+                }
+            }
+        }
+    }
     public void OnClickCloseMenu()
     {
         if (!isStroyed)
@@ -51,30 +78,13 @@ public class UIManager : MonoBehaviour
     public void OnStoryText(int endTextNumber)
     {
         Time.timeScale = 0;
-        button.SetActive(true);
         isStroyed = true;
         endTextCnt = endTextNumber;
         text.text = string.Format(texts[textCnt]);
-        textObjectPos.anchoredPosition = textPos[textCnt];
-        textObject.SetActive(true);
+        characterImage.sprite = characterSprite[textCnt];
+        //textObjectPos.anchoredPosition = textPos[textCnt];
+        //textObject.SetActive(true);
+        storyTextPanel.SetActive(true);
         textCnt++;
-    }
-    public void NextText()
-    {
-        if (isStroyed)
-        {
-                if (textCnt >= endTextCnt)
-                {
-                    Debug.Log(textCnt & endTextCnt);
-                    Time.timeScale = 1;
-                    textObject.SetActive(false);
-                    button.SetActive(false);
-                    isStroyed = false;
-                }
-                else
-                {
-                    OnStoryText(endTextCnt);
-                }
-        }
     }
 }
