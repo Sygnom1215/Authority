@@ -26,6 +26,8 @@ public class Boss_chapter1 : MonoBehaviour
     private bool isPattern5 = false;
     private bool isPattern6 = false;
     private bool isRainShot = false;
+    private bool isStoryText_2 = false;
+    private bool isStoryText_3 = false;
     private float speed = 0.1f;
     void Start()
     {
@@ -37,6 +39,11 @@ public class Boss_chapter1 : MonoBehaviour
         if (!isStop)
         {
             SeaPlayer();
+        }
+        if (GameManager.Instance.time <= 48f && !isStoryText_2)
+        {
+            isStoryText_2 = true;
+            uIManager.OnStoryText(9);
         }
         if (GameManager.Instance.time <= 52f && !isPattern1)
         {
@@ -50,7 +57,6 @@ public class Boss_chapter1 : MonoBehaviour
         }
         if (GameManager.Instance.time <= 47f && !isPattern3)
         {
-            uIManager.OnStoryText(9);
             isPattern3 = true;
             Pattern3();
         }
@@ -64,9 +70,13 @@ public class Boss_chapter1 : MonoBehaviour
             isPattern4_1 = true;
             Pattern4_1();
         }
+        if(GameManager.Instance.time <= 27f && !isStoryText_3)
+        {
+            isStoryText_3 = true;
+            uIManager.OnStoryText(17);
+        }
         if (GameManager.Instance.time <= 26f && !isPattern5)
         {
-            uIManager.OnStoryText(17);
             isPattern5 = true;
             Pattern5();
         }
