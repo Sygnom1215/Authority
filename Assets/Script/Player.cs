@@ -98,6 +98,10 @@ public class Player : MonoBehaviour
             isDamage = true;
             GameManager.Instance.life--;
             StartCoroutine(Camera.main.GetComponent<ShakeCamera>().Shake(.05f));
+            if (GameManager.Instance.life <= 0)
+            {
+                GameOver();
+            }
             for (int i = 0; i < 3; i++)
             {
                 spriteRenderer.enabled = false;
@@ -106,10 +110,6 @@ public class Player : MonoBehaviour
                 yield return new WaitForSeconds(0.2f);
             }
             isDamage = false;
-            if(GameManager.Instance.life <= 0)
-            {
-                GameOver();
-            }
         }
     }
     public void StartHit()

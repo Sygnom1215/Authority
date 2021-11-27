@@ -99,7 +99,10 @@ public class GameManager : MonoBehaviour
     {
         isOpenMenu = false;
         menu.SetActive(false);
-        Time.timeScale = 1;
+        if (!uIManager.isStroyed)
+        {
+            Time.timeScale = 1;
+        }
     }
     public void Boss_Test_PatternReset()
     {

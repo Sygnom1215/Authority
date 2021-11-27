@@ -3110,9 +3110,11 @@ MonoBehaviour:
   Win: {fileID: 1357387330}
   menu: {fileID: 368277156}
   GameOverPrefab: {fileID: 507103224}
+  uIManager: {fileID: 0}
   Bullets: []
   maxPosition: {x: 8.7, y: 4.7}
   minPosition: {x: -8.7, y: -4.7}
+  isOpenMenu: 0
   isDead: 0
 --- !u!4 &1085827361
 Transform:
@@ -4736,7 +4738,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -150, y: 20}
-  m_SizeDelta: {x: 1000, y: 150}
+  m_SizeDelta: {x: 1000, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1732072166
 MonoBehaviour:
