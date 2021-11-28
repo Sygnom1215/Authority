@@ -131,7 +131,7 @@ public class StageSelect : MonoBehaviour
     public void OnClickTaecho()
     {
         //Debug.Log("저기봐 피카츄 태초마을이야! / 피카피카!");
-        SceneManager.LoadScene("GameStart");
+        SceneManager.LoadScene("01. GameStart");
         Time.timeScale = 1;
     }
     public void OnClickStart()
@@ -139,7 +139,7 @@ public class StageSelect : MonoBehaviour
         switch (cnt)
         {
             case 0:
-                SceneManager.LoadScene("PlayScene");
+                SceneManager.LoadScene("03.PlayScene");
                 Time.timeScale = 1;
                 break;
             case 1:

@@ -47,7 +47,7 @@ public class GameStartManager : MonoBehaviour
     }
     public void OnClickStart()
     {
-        SceneManager.LoadScene("Stage");
+        SceneManager.LoadScene("02. Stage");
         Time.timeScale = 1;
     }
     public void OnClickLore()
