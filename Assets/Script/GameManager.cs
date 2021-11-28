@@ -106,7 +106,7 @@ public class GameManager : MonoBehaviour
     }
     public void Boss_Test_PatternReset()
     {
-        SceneManager.LoadScene("PlayScene");
+        SceneManager.LoadScene("03.PlayScene");
         Time.timeScale = 1;
     }
     public void ResetBullet()
