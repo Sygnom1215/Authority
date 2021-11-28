@@ -71,7 +71,7 @@ public class UIManager : MonoBehaviour
     {
         if (!isStroyed)
         {
-            SceneManager.LoadScene("Stage");
+            SceneManager.LoadScene("02. Stage");
             Time.timeScale = 1;
         }
     }
