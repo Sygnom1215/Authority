@@ -55,25 +55,22 @@ public class UIManager : MonoBehaviour
     }
     public void OnClickCloseMenu()
     {
-        if (!isStroyed)
-        {
+
             GameManager.Instance.CloseMenu();
-        }
+
     }
     public void OnClickRestart()
     {
-        if (!isStroyed)
-        {
+
             GameManager.Instance.Boss_Test_PatternReset();
-        }
+  
     }
     public void OnClickGoToMenu()
     {
-        if (!isStroyed)
-        {
+
             SceneManager.LoadScene("02. Stage");
             Time.timeScale = 1;
-        }
+        
     }
     public void OnStoryText(int endTextNumber)
     {
