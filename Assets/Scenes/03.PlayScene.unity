@@ -3110,7 +3110,7 @@ MonoBehaviour:
   Win: {fileID: 1357387330}
   menu: {fileID: 368277156}
   GameOverPrefab: {fileID: 507103224}
-  uIManager: {fileID: 0}
+  uIManager: {fileID: 1085827362}
   Bullets: []
   maxPosition: {x: 8.7, y: 4.7}
   minPosition: {x: -8.7, y: -4.7}
