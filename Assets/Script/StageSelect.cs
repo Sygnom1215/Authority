@@ -54,13 +54,11 @@ public class StageSelect : MonoBehaviour
             }
             else if (isOpenMenu)
             {
-                menu.SetActive(false);
-                isOpenMenu = false;
+                OnClickCloseMenu();
             }
             else
             {
-                menu.SetActive(true);
-                isOpenMenu = true;
+                OnClickOpenMenu();
             }
         }
         if (Input.GetKeyDown(KeyCode.A) | Input.GetKeyDown(KeyCode.LeftArrow))
@@ -132,6 +130,16 @@ public class StageSelect : MonoBehaviour
     {
         SceneManager.LoadScene("01. GameStart");
         Time.timeScale = 1;
+    }
+    public void OnClickOpenMenu()
+    {
+        menu.SetActive(true);
+        isOpenMenu = true;
+    }
+    public void OnClickCloseMenu()
+    {
+        menu.SetActive(false);
+        isOpenMenu = false;
     }
     public void OnClickStart()
     {
