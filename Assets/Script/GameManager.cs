@@ -71,8 +71,8 @@ public class GameManager : MonoBehaviour
     {
         if (time <= 0)
         {
-            //AudioManager.Instance.PlayStage1ClearBgm();
             Win.SetActive(true);
+            Time.timeScale = 0f;
             timeOver = true;
             return;
         }
