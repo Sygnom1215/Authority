@@ -99,14 +99,7 @@ public class Boss_chapter1 : MonoBehaviour
     {
         Vector2 rot = player.transform.position - bossPositionn.position;
         var angle = Mathf.Atan2(rot.y, rot.x) * Mathf.Rad2Deg;
-        //bossPositionn.rotation = Quaternion.Euler(0, 0, angle);
-        //Angle = angle + 90;
         lineRenderer.SetPosition(0, bossPositionn.position);
-        //if (angle < 0)
-        //{
-        //    angle += 270;
-        //}
-        //lineRenderer.SetPosition(1, angle * player.transform.position);
         lineRenderer.SetPosition(1, player.transform.position);
     }
 

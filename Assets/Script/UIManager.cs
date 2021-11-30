@@ -25,10 +25,6 @@ public class UIManager : MonoBehaviour
     private int endTextCnt = 0;
     private int textCnt = 0;
     public bool isStroyed { get; private set; } = false;
-    /* 해야 하는 거 
-     * pause << 당장에 만들 수 있는거 ??
-     * Scene Out 
-     */
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Space))
@@ -79,8 +75,6 @@ public class UIManager : MonoBehaviour
         endTextCnt = endTextNumber;
         text.text = string.Format(texts[textCnt]);
         characterImage.sprite = characterSprite[textCnt];
-        //textObjectPos.anchoredPosition = textPos[textCnt];
-        //textObject.SetActive(true);
         storyTextPanel.SetActive(true);
         textCnt++;
     }

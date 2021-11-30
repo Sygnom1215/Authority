@@ -7,11 +7,6 @@ public class Bullet : Poolable
     public bool isPatterned = false;
     public float speed = 0f;
 
-    void Start()
-    {
-
-    }
-
     void Update()
     {
         CheckPosition();
@@ -23,7 +18,6 @@ public class Bullet : Poolable
         isPatterned = false;
         GameManager.Instance.RemoveBulletList(gameObject);
         Push();
-        //Destroy(gameObject);
     }
     void CheckPosition()
     {
