@@ -45,20 +45,34 @@ public class StageSelect : MonoBehaviour
 
         stageText.text = stageTexts[cnt];
         loreText.text = loreTexts[cnt];
-
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (isOpenLore)
+            {
+                OnClickStart();
+            }
+            else
+            {
+                OnClickSelect();
+            }
+        }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (isOpenLore)
             {
                 OnClickCloseLore();
             }
-            else if (isOpenMenu)
-            {
-                OnClickCloseMenu();
-            }
+            //else if (isOpenMenu)
+            //{
+            //    OnClickCloseMenu();
+            //}
+            //else
+            //{
+            //    OnClickOpenMenu();
+            //}
             else
             {
-                OnClickOpenMenu();
+                OnClickTaecho();
             }
         }
         if (Input.GetKeyDown(KeyCode.A) | Input.GetKeyDown(KeyCode.LeftArrow))
@@ -119,12 +133,14 @@ public class StageSelect : MonoBehaviour
         isOpenLore = true;
         lorePanel.SetActive(true);
         stageLoreTexts[cnt].SetActive(true);
+        AudioManager.Instance.PlayButtonSound();
     }
     public void OnClickCloseLore()
     {
         isOpenLore = false;
         lorePanel.SetActive(false);
         stageLoreTexts[cnt].SetActive(false);
+        AudioManager.Instance.PlayButtonSound();
     }
     public void OnClickTaecho()
     {
