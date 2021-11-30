@@ -35,9 +35,7 @@ public class UIManager : MonoBehaviour
                 {
                     if (textCnt >= endTextCnt)
                     {
-                        Debug.Log(textCnt & endTextCnt);
                         Time.timeScale = 1;
-                        //textObject.SetActive(false);
                         storyTextPanel.SetActive(false);
                         isStroyed = false;
                     }

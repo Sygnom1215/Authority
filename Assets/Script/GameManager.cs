@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
     {
         Bullets = new List<GameObject>(GameObject.FindGameObjectsWithTag("Bullet"));
         lifeText.text = string.Format("Life {0}", life);
+        AudioManager.Instance.PlayStage1Bgm();
     }
     void Update()
     {
@@ -70,6 +71,7 @@ public class GameManager : MonoBehaviour
     {
         if (time <= 0)
         {
+            //AudioManager.Instance.PlayStage1ClearBgm();
             Win.SetActive(true);
             timeOver = true;
             return;
@@ -89,15 +91,16 @@ public class GameManager : MonoBehaviour
 
     private void OpenMenu()
     {
+        AudioManager.Instance.PlayMenuButtonSound();
         isOpenMenu = true;
         menu.SetActive(true);
         Time.timeScale = 0;
-
     }
     public void CloseMenu()
     {
         isOpenMenu = false;
         menu.SetActive(false);
+        AudioManager.Instance.PlayMenuButtonSound();
         if (!uIManager.isStroyed)
         {
             Time.timeScale = 1;

@@ -36,7 +36,6 @@ public class Toenail_Boss_Chapter1 : MonoBehaviour
                 {
                     Player.Instance.StartHit();
                 }
-                Debug.Log("Hit");
             }
         }
         else if (!isDanger)

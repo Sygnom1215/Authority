@@ -151,6 +151,7 @@ public class Boss_chapter1 : MonoBehaviour
             }
             Vector2 target = player.transform.position;
             isStop = true;
+            AudioManager.Instance.PlayRushSound();
             while (transform.position.x != target.x && transform.position.y != target.y)
             {
                 transform.position = Vector2.MoveTowards(transform.position, target,speed *Time.deltaTime);

@@ -97,6 +97,7 @@ public class Player : MonoBehaviour
         {
             isDamage = true;
             GameManager.Instance.life--;
+            AudioManager.Instance.PlayHitSound();
             StartCoroutine(Camera.main.GetComponent<ShakeCamera>().Shake(.05f));
             if (GameManager.Instance.life <= 0)
             {

@@ -4,13 +4,29 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-
-    private AudioSource theAudio;
+    [SerializeField]
+    private AudioSource buttonAudio;
+    [SerializeField]
+    private AudioSource hitAudio;
+    [SerializeField]
+    private AudioSource bgmAudio;
+    [SerializeField]
+    private AudioSource clearBgmAudio;
+    [SerializeField]
+    private AudioSource bossAudio;
 
     [SerializeField]
     private AudioClip menuSound;
     [SerializeField]
     private AudioClip buttonSound;
+    [SerializeField]
+    private AudioClip hitSound;
+    [SerializeField]
+    private AudioClip stage1_Bgm;
+    [SerializeField]
+    private AudioClip stage1_Clear_Bgm;
+    [SerializeField]
+    private AudioClip bossRushSound;
 
     public static AudioManager Instance = null;
 
@@ -29,19 +45,35 @@ public class AudioManager : MonoBehaviour
             }
         }
     }
-
-    void Start()
-    {
-        theAudio = GetComponent<AudioSource>();
-    }
     public void PlayMenuButtonSound()
     {
-        theAudio.clip = menuSound;
-        theAudio.Play();
+        buttonAudio.clip = menuSound;
+        buttonAudio.Play();
     }
     public void PlayButtonSound()
     {
-        theAudio.clip = buttonSound;
-        theAudio.Play();
+        buttonAudio.clip = buttonSound;
+        buttonAudio.Play();
+    }
+    public void PlayHitSound()
+    {
+        hitAudio.clip = hitSound;
+        hitAudio.Play();
+    }
+    public void PlayStage1Bgm()
+    {
+        bgmAudio.clip = stage1_Bgm;
+        bgmAudio.Play();
+    }
+    public void PlayStage1ClearBgm()
+    {
+        bgmAudio.Pause();
+        clearBgmAudio.clip = stage1_Clear_Bgm;
+        clearBgmAudio.Play();
+    }
+    public void PlayRushSound()
+    {
+        bossAudio.clip = bossRushSound;
+        bossAudio.Play();
     }
 }
