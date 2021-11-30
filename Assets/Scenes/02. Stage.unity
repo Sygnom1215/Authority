@@ -1543,7 +1543,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2136468664}
         m_TargetAssemblyTypeName: StageSelect, Assembly-CSharp
-        m_MethodName: OnClickOpenMenu
+        m_MethodName: OnClickTaecho
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
