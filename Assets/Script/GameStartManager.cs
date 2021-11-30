@@ -11,6 +11,8 @@ public class GameStartManager : MonoBehaviour
     private GameObject gameLore;
     [SerializeField]
     private GameObject[] lores;
+    [SerializeField]
+    private GameObject playerImage;
 
     private int loreCnt = 0;
 
@@ -52,12 +54,14 @@ public class GameStartManager : MonoBehaviour
     }
     public void OnClickLore()
     {
+        playerImage.SetActive(false);
         gameLore.SetActive(true);
         lores[0].SetActive(true);
         isOpenLore = true;
     }
     public void CloseLore()
     {
+        playerImage.SetActive(true);
         gameLore.SetActive(false);
         lores[loreCnt].SetActive(false);
         loreCnt = 0;
@@ -65,7 +69,7 @@ public class GameStartManager : MonoBehaviour
     }
     public void NextLore()
     {
-        if (loreCnt == 4) return;
+        if (loreCnt == 3) return;
         lores[loreCnt].SetActive(false);
         loreCnt++;
         lores[loreCnt].SetActive(true);
