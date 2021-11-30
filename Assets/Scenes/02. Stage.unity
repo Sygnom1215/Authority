@@ -217,6 +217,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 672021889}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &35371645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -481,6 +493,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 672021889}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &232140727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -604,6 +628,18 @@ MonoBehaviour:
       - m_Target: {fileID: 2136468664}
         m_TargetAssemblyTypeName: StageSelect, Assembly-CSharp
         m_MethodName: OnClickCloseMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 672021889}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: PlayButtonSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1302,15 +1338,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86428a4e9c3912f4192a6641bee33125, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonAudio: {fileID: 0}
+  buttonAudio: {fileID: 672021891}
   hitAudio: {fileID: 0}
   bgmAudio: {fileID: 0}
   clearBgmAudio: {fileID: 0}
+  bossAudio: {fileID: 0}
   menuSound: {fileID: 8300000, guid: b71446e3d7623a849bc67e87407580a5, type: 3}
   buttonSound: {fileID: 8300000, guid: 7dc8950dbfa44d44aa7eba3014df65e2, type: 3}
   hitSound: {fileID: 0}
   stage1_Bgm: {fileID: 0}
   stage1_Clear_Bgm: {fileID: 0}
+  bossRushSound: {fileID: 0}
 --- !u!4 &672021890
 Transform:
   m_ObjectHideFlags: 0
@@ -1506,6 +1544,18 @@ MonoBehaviour:
       - m_Target: {fileID: 2136468664}
         m_TargetAssemblyTypeName: StageSelect, Assembly-CSharp
         m_MethodName: OnClickOpenMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 672021889}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: PlayButtonSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
