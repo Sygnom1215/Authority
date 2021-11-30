@@ -130,7 +130,7 @@ public class Boss_chapter1 : MonoBehaviour
     void Pattern5()
     {
         isPattern5 = true;
-        StartCoroutine(ShotPattern5(30, 1));
+        StartCoroutine(ShotPattern5(40, 1));
     }
     void Pattern6()
     {
