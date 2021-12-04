@@ -26,6 +26,8 @@ public class StageSelect : MonoBehaviour
     private GameObject rightButton;
     [SerializeField]
     private GameObject menu;
+    [SerializeField]
+    private GameObject errorPanel;
 
     private int cnt = 0;
     private SpriteRenderer spriteRenderer;
@@ -77,14 +79,22 @@ public class StageSelect : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.A) | Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            if (isOpenLore)
-                OnClickCloseLore();
+            if (cnt != 0) // 다음스테이지 나오면 요 if 지우면됨
+            {
+                if (isOpenLore)
+                    OnClickCloseLore();
+                OnClickLeft();
+            }
             OnClickLeft();
         }
         if (Input.GetKeyDown(KeyCode.D) | Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if (isOpenLore)
-                OnClickCloseLore();
+            if(cnt != 0)
+            {
+                if (isOpenLore)
+                    OnClickCloseLore();
+                OnClickRight();
+            }
             OnClickRight();
         }
     }
@@ -114,19 +124,35 @@ public class StageSelect : MonoBehaviour
     }
     public void OnClickRight()
     {
+        if (cnt != 0)
+        {
+            if (isMaxRight) return;
+            if (isOpenLore)
+                OnClickCloseLore();
+            AudioManager.Instance.PlayButtonSound();
+            cnt++;
+            spriteRenderer.sprite = sprites[1];
+            transform.Translate(Vector2.right * 50, Space.Self);
+        }
         if (isMaxRight) return;
-        AudioManager.Instance.PlayButtonSound();
-        cnt++;
-        spriteRenderer.sprite = sprites[1];
-        transform.Translate(Vector2.right * 50, Space.Self);
+        errorPanel.SetActive(true);
+        Invoke("OnClickCloseError", 1.5f);
     }
     public void OnClickLeft()
     {
+        if (cnt != 0)
+        {
+            if (isOpenLore)
+                OnClickCloseLore();
+            if (isMaxLeft) return;
+            AudioManager.Instance.PlayButtonSound();
+            cnt--;
+            spriteRenderer.sprite = sprites[0];
+            transform.Translate(Vector2.left * 50, Space.Self);
+        }
         if (isMaxLeft) return;
-        AudioManager.Instance.PlayButtonSound();
-        cnt--;
-        spriteRenderer.sprite = sprites[0];
-        transform.Translate(Vector2.left * 50, Space.Self);
+        errorPanel.SetActive(true);
+        Invoke("OnClickCloseError", 1.5f);
     }
     public void OnClickSelect()
     {
@@ -176,5 +202,9 @@ public class StageSelect : MonoBehaviour
             default:
                 break;
         }
+    }
+    public void OnClickCloseError()
+    {
+        errorPanel.SetActive(false);
     }
 }
