@@ -1,2 +1,5 @@
 # UnityTeamProject_Authority
-_집가고싶다_
+Game Name : FairyTale Keeper
+LastUpdate : 19 Dec2021
+
+Postponed Indefinitely
